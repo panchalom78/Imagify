@@ -27,6 +27,8 @@ export const connectToDatabase = async () => {
     cached.promise = cached.promise || mongoose.connect(MONOGODB_URL, {dbName:'imagify',bufferCommands:false})
 
     cached.conn = await cached.promise
+    console.log('Connected to database');
+    
 
     return cached.conn
 }
