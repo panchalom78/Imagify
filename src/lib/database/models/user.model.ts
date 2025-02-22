@@ -17,7 +17,7 @@ const UserSchema = new Schema({
     username:{type:String, required:true,unique:true},
     firstName:{type:String},
     lastName:{type:String},
-    photo:{type:URL},
+    photo:{type:String},
     planId:{type:Number,default:1},
     creditBalance:{type:Number,default:10},
 })
