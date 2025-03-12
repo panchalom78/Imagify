@@ -7,15 +7,17 @@ import Header from "@/components/shared/Header";
 import { getUserImages } from "@/lib/actions/image.action";
 import { getUserById } from "@/lib/actions/user.action";
 
-interface ProfileProps {
-    searchParams: {
-        page: string;
-    };
+interface PageProps {
+    searchParams: Promise<{
+        page?: string;
+        [key: string]: string | string[] | undefined;
+    }>;
 }
 
-const Profile = async ({ searchParams }: ProfileProps) => {
+const Profile = async ({ searchParams }: PageProps) => {
     // const params = await searchParams;
-    const page = Number(searchParams?.page) || 1;
+    const params = await searchParams;
+    const page = Number(params?.page) || 1;
     const { userId } = await auth();
 
     if (!userId) redirect("/sign-in");
