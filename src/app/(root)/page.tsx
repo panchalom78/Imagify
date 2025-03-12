@@ -5,8 +5,9 @@ import { Collection } from "@/components/shared/Collections";
 import { getAllImages } from "@/lib/actions/image.action";
 
 const Home = async ({ searchParams }: SearchParamProps) => {
-    const page = Number(searchParams?.page) || 1;
-    const searchQuery = (searchParams?.query as string) || "";
+    const params = await searchParams;
+    const page = Number(params?.page) || 1;
+    const searchQuery = (params?.query as string) || "";
 
     const images = await getAllImages({ page, searchQuery });
     return (

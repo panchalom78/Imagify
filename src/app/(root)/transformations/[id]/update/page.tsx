@@ -7,13 +7,14 @@ import { transformationTypes } from "../../../../../../constants";
 import { getUserById } from "@/lib/actions/user.action";
 import { getImageById } from "@/lib/actions/image.action";
 
-const Page = async ({ params: { id } }: SearchParamProps) => {
+const Page = async ({ params }: SearchParamProps) => {
     const { userId } = await auth();
+    const paramstype = await params;
 
     if (!userId) redirect("/sign-in");
 
     const user = await getUserById(userId);
-    const image = await getImageById(id);
+    const image = await getImageById(paramstype.id);
 
     const transformation =
         transformationTypes[image.transformationType as TransformationTypeKey];
