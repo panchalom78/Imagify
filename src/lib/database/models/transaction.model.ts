@@ -7,8 +7,6 @@ const TransactionSchema = new Schema({
     },
     razorPayOrderId: {
         type: String,
-        required: true,
-        unique: true,
     },
     amount: {
         type: Number,
