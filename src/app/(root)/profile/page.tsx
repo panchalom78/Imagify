@@ -1,15 +1,23 @@
+"use client";
+
 import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
-import { redirect } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 
 import { Collection } from "@/components/shared/Collections";
 import Header from "@/components/shared/Header";
 import { getUserImages } from "@/lib/actions/image.action";
 import { getUserById } from "@/lib/actions/user.action";
 
-const Profile = async ({ searchParams }: SearchParamProps) => {
-    const params = await searchParams;
-    const page = Number(params?.page) || 1;
+interface ProfileProps {
+    searchParams: {
+        page: string;
+    };
+}
+
+const Profile = async ({ searchParams }: ProfileProps) => {
+    // const params = await searchParams;
+    const page = Number(searchParams?.page) || 1;
     const { userId } = await auth();
 
     if (!userId) redirect("/sign-in");

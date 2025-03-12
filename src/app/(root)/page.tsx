@@ -3,11 +3,18 @@ import { navLinks } from "../../../constants";
 import Image from "next/image";
 import { Collection } from "@/components/shared/Collections";
 import { getAllImages } from "@/lib/actions/image.action";
+import { useSearchParams } from "next/navigation";
 
-const Home = async ({ searchParams }: SearchParamProps) => {
-    const params = await searchParams;
+interface HomeProps {
+    params: {
+        page: string;
+        query: string;
+    };
+}
+
+const Home = async ({ params }: HomeProps) => {
     const page = Number(params?.page) || 1;
-    const searchQuery = (params?.query as string) || "";
+    const searchQuery = params?.query || "";
 
     const images = await getAllImages({ page, searchQuery });
     return (
