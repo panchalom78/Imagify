@@ -10,15 +10,15 @@ import { getImageSize } from "@/lib/utils";
 import { DeleteConfirmation } from "@/components/shared/DeleteConfirmation";
 
 interface ImageDetailsProps {
-    params: {
+    params: Promise<{
         id: string;
-    };
+    }>;
 }
 
 const ImageDetails = async ({ params }: ImageDetailsProps) => {
     const { userId } = await auth();
-
-    const image = await getImageById(params?.id);
+    const param = await params;
+    const image = await getImageById(param?.id);
 
     return (
         <>

@@ -9,9 +9,9 @@ import { getImageById } from "@/lib/actions/image.action";
 import { useRouter } from "next/router";
 
 interface PageProps {
-    params: {
+    params: Promise<{
         id: string;
-    };
+    }>;
 }
 
 const Page = async ({ params }: PageProps) => {
@@ -21,7 +21,8 @@ const Page = async ({ params }: PageProps) => {
     if (!userId) redirect("/sign-in");
 
     const user = await getUserById(userId);
-    const image = await getImageById(params?.id);
+    const param = await params;
+    const image = await getImageById(param?.id);
 
     const transformation =
         transformationTypes[image.transformationType as TransformationTypeKey];

@@ -7,16 +7,17 @@ import { getUserById } from "@/lib/actions/user.action";
 import { redirect } from "next/navigation";
 
 interface TransformationsAddPageProps {
-    params: {
+    params: Promise<{
         type: string;
-    };
+    }>;
 }
 
 const TransformationsAddPage = async ({
     params,
 }: TransformationsAddPageProps) => {
+    const param = await params;
     const transformation =
-        transformationTypes[params?.type as TransformationTypeKey];
+        transformationTypes[param?.type as TransformationTypeKey];
     const { userId } = await auth();
 
     if (!userId) {
